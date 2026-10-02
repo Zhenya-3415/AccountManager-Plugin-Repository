@@ -39,5 +39,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api user --jq '"GITHUB_API_OK login=" + .login'
+          gh api repos/${{ github.repository }} --jq '"GITHUB_REPO_API_OK repo=" + .full_name + " private=" + (.private|tostring)'
           gh api rate_limit --jq '"GITHUB_RATE_LIMIT_OK remaining=" + (.rate.remaining|tostring)'
