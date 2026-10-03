@@ -1,0 +1,28 @@
+name: plugin-ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate plugin contracts
+        run: python3 ci/plugin_contract_smoke.py
+      - name: Fetch sanitized framework OTA artifact
+        run: |
+          mkdir -p /tmp/am
+          curl --fail --location --retry 3 -o /tmp/am/framework.zip \
+            https://github.com/Zhenya-3415/AccountManager-OTA/raw/ota/stable-1.0.1/releases/1.0.1/AccountManager-1.0.1.zip
+          unzip -q /tmp/am/framework.zip -d /tmp/am
+          cp -a plugins /tmp/am/AccountManager/plugins/external-test
+      - name: Install framework dependencies
+        working-directory: /tmp/am/AccountManager
+        run: python3 -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Run framework tests
+        working-directory: /tmp/am/AccountManager
+        run: python3 -m pytest -q --disable-warnings
