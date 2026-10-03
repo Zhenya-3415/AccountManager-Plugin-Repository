@@ -1,0 +1,1 @@
+CREATE TABLE plugin_probe (id INTEGER PRIMARY KEY, value TEXT NOT NULL);
