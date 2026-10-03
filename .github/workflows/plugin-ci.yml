@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir -p /tmp/am
           curl --fail --location --retry 3 -o /tmp/am/framework.zip \
-            https://github.com/Zhenya-3415/AccountManager-OTA/raw/ota/stable-1.0.1/releases/1.0.1/AccountManager-1.0.1.zip
+            https://github.com/Zhenya-3415/AccountManager-OTA/raw/ota/stable-1.0.1/releases/AccountManager-1.0.1.zip
           unzip -q /tmp/am/framework.zip -d /tmp/am
           cp -a plugins /tmp/am/AccountManager/plugins/external-test
       - name: Install framework dependencies
