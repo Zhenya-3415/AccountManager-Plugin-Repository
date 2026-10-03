@@ -21,7 +21,7 @@ jobs:
           unzip -q /tmp/am/framework.zip -d /tmp/am
           cp -a plugins /tmp/am/AccountManager/plugins/external-test
       - name: Install framework dependencies
-        run: python3 -m pip install --disable-pip-version-check --user aiogram aiosqlite asyncpg python-dotenv cryptography packaging pytest pytest-asyncio
+        run: python3 -m pip install --disable-pip-version-check --user -r /tmp/am/AccountManager/requirements.txt
 
       - name: Run framework tests
         working-directory: /tmp/am/AccountManager
